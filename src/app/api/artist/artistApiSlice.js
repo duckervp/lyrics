@@ -33,6 +33,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "GET"
       }),
     }),
+    getArtistBySlug: builder.query({
+      query: (id) => ({
+        url: `${API.artist}/sl/${id}`,
+        method: "GET"
+      }),
+    }),
     getArtistDetail: builder.mutation({
       query: (id) => ({
         url: `${API.artist}/${id}`,
@@ -81,5 +87,6 @@ export const {
   useCreateArtistMutation,
   useDeleteArtistMutation,
   useUpdateArtistMutation,
-  useDeleteArtistsMutation
+  useDeleteArtistsMutation,
+  useGetArtistBySlugQuery
 } = authApiSlice;

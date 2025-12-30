@@ -3,24 +3,16 @@ import type { CardProps } from '@mui/material/Card';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-// import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
-import useMediaQuery from '@mui/material/useMediaQuery';
-
-import { useSmoothNavigate } from 'src/hooks/use-smooth-navigate';
 
 import { fToNow, fDateTime, formatPatterns } from 'src/utils/format-time';
 
-import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
-import IosBackButton from 'src/components/button/back-button';
 
 import LyricsViewer from '../lyric/lyric-viewer';
+import { LyricHeader } from '../components/lyric-header';
 // ----------------------------------------------------------------------
 
 export type SongDetailProps = {
@@ -41,21 +33,16 @@ type Props = CardProps & {
   song?: SongDetailProps;
 };
 
-type DetailedTitleProps = {
-  title?: string;
-  songTitle?: string;
-};
-
 export function SongDetail({ title, subheader, song, ...other }: Props) {
   return (
     <Card {...other}>
       <CardHeader
-        title={<SongDetailHeader title={title} songTitle={song?.title} />}
+        title={<LyricHeader title={title} sub={song?.title} />}
         subheader={subheader}
         sx={{ mb: 1 }}
       />
 
-      <Scrollbar sx={{ minHeight: { xs: '65vh' }, maxHeight: { md: '65vh' } }}>
+      <Scrollbar sx={{ minHeight: { xs: '78.5vh', md: '65vh' }, maxHeight: { md: '65vh' } }}>
         <Box sx={{ minWidth: { md: 640 } }}>
           <SongItemDetail song={song} />
         </Box>
@@ -71,30 +58,6 @@ export function SongDetail({ title, subheader, song, ...other }: Props) {
         </Button>
       </Box> */}
     </Card>
-  );
-}
-
-// ----------------------------------------------------------------------
-function SongDetailHeader({ title, songTitle }: DetailedTitleProps) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const go = useSmoothNavigate();
-  return (
-    <Box sx={{ position: 'relative' }}>
-      <Box sx={{ position: 'absolute', top: isMobile ? -6 : 0 }}>
-        <IosBackButton label="" />
-      </Box>
-
-      <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-        {!isMobile && (
-          <Typography variant="h4" onClick={() => go('/')} sx={{ cursor: 'pointer' }}>
-            {title}
-          </Typography>
-        )}
-        {!isMobile && <Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
-        <Typography variant="h5">{songTitle}</Typography>
-      </Stack>
-    </Box>
   );
 }
 

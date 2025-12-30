@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -45,7 +46,7 @@ export default function SearchModeSwitch({
           left: isArtist ? `calc(50% + 1px)` : 3,
           width: '50%',
           height: 'calc(100% - 6px)',
-          bgcolor: 'background.paper',
+          bgcolor: 'black',
           borderRadius: 99,
           boxShadow: 1,
           transition: 'all .25s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -53,40 +54,44 @@ export default function SearchModeSwitch({
       />
 
       {/* Song */}
-      <Box
-        onClick={() => onChange('song')}
-        sx={{
-          flex: 1,
-          zIndex: 1,
-          textAlign: 'center',
-        }}
-      >
-        <Typography
-          fontSize={FONT_SIZE}
-          fontWeight={!isArtist ? 800 : 500}
-          color={!isArtist ? 'inherit' : 'text.disabled'}
+      <Tooltip title="Song Mode">
+        <Box
+          onClick={() => onChange('song')}
+          sx={{
+            flex: 1,
+            zIndex: 1,
+            textAlign: 'center',
+          }}
         >
-          Song
-        </Typography>
-      </Box>
+          <Typography
+            fontSize={FONT_SIZE}
+            fontWeight={!isArtist ? 800 : 500}
+            color={!isArtist ? 'white' : 'text.disabled'}
+          >
+            Song
+          </Typography>
+        </Box>
+      </Tooltip>
 
       {/* Artist */}
-      <Box
-        onClick={() => onChange('artist')}
-        sx={{
-          flex: 1,
-          zIndex: 1,
-          textAlign: 'center',
-        }}
-      >
-        <Typography
-          fontSize={FONT_SIZE}
-          fontWeight={isArtist ? 800 : 500}
-          color={isArtist ? 'inherit' : 'text.disabled'}
+      <Tooltip title="Artist Mode">
+        <Box
+          onClick={() => onChange('artist')}
+          sx={{
+            flex: 1,
+            zIndex: 1,
+            textAlign: 'center',
+          }}
         >
-          Artist
-        </Typography>
-      </Box>
+          <Typography
+            fontSize={FONT_SIZE}
+            fontWeight={isArtist ? 800 : 500}
+            color={isArtist ? 'white' : 'text.disabled'}
+          >
+            Artist
+          </Typography>
+        </Box>
+      </Tooltip>
     </Box>
   );
 }

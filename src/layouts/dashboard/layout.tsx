@@ -280,7 +280,6 @@ export function ProfileLayout({
   );
 }
 
-
 export function LyricLayout({
   sx,
   cssVars,
@@ -326,7 +325,7 @@ export function LyricLayout({
               }),
             },
           },
-          paddingTop: 10
+          paddingTop: { xs: 7.5, md: 10 },
         },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}

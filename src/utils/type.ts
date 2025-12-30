@@ -9,6 +9,17 @@ export enum ArtistRole {
   SINGER_COMPOSER = 'singer_composer'
 }
 
+export type ArtistRoleKey =
+  | 'singer'
+  | 'composer'
+  | 'singer_composer';
+
+export const ArtistRoleLabel: Record<ArtistRoleKey, string> = {
+  singer: 'Singer',
+  composer: 'Composer',
+  singer_composer: 'Singer & Composer',
+};
+
 export interface SongArtist {
   id?: number;
   songId: number;
@@ -35,10 +46,10 @@ export interface Song {
   coverUrl: string;
 }
 
-export type ViewState = 
-  | 'USER_HOME' 
-  | 'USER_SEARCH' 
-  | 'USER_SONG_DETAIL' 
+export type ViewState =
+  | 'USER_HOME'
+  | 'USER_SEARCH'
+  | 'USER_SONG_DETAIL'
   | 'USER_ARTIST_DETAIL'
   | 'ADMIN_DASHBOARD'
   | 'ADMIN_SONGS'

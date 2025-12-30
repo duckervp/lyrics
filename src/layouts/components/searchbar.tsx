@@ -6,20 +6,20 @@ import { useState, useEffect, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
-import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import InputAdornment from '@mui/material/InputAdornment';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 import { useDebounce } from 'src/hooks/use-debounce';
 
-import { useAppDispatch } from 'src/app/hooks';
-import { changeValue } from 'src/app/api/search/searchSlice';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { changeValue, selectSearchMode } from 'src/app/api/search/searchSlice';
 
 import { Iconify } from 'src/components/iconify';
 import SearchModeSwitch from 'src/components/switch/search-mode-switch';
-
 // ----------------------------------------------------------------------
 
 export function Searchbar({ sx, ...other }: BoxProps) {
@@ -50,9 +50,10 @@ export function Searchbar({ sx, ...other }: BoxProps) {
   const handleClear = useCallback(() => {
     dispatch(changeValue({ value: '' }));
     setSearchValue('');
-  }, [dispatch]);
+    handleClose();
+  }, [dispatch, handleClose]);
 
-  const [mode, setMode] = useState<'song' | 'artist'>('song');
+  const currentMode = useAppSelector(selectSearchMode);
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
@@ -98,10 +99,15 @@ export function Searchbar({ sx, ...other }: BoxProps) {
               }
               sx={{ fontWeight: 'fontWeightBold' }}
             />
-              <SearchModeSwitch value={mode} onChange={(value) => setMode(value)} />
-            <Button variant="contained" onClick={handleClear} color="inherit">
-              Clear
-            </Button>
+            <SearchModeSwitch
+              value={currentMode === 'artist' ? 'artist' : 'song'}
+              onChange={(value) => dispatch(changeValue({ mode: value }))}
+            />
+            <Tooltip title="Clear and Close">
+              <IconButton onClick={handleClear}>
+                <CloseIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Slide>
       </div>
