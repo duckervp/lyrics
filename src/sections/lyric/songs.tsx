@@ -19,9 +19,10 @@ type Props = CardProps & {
   subheader?: string;
   sub?: string;
   list: LyricItemProps[];
+  loadMore?: React.ReactNode;
 };
 
-export function Songs({ title, subheader, sub, list, ...other }: Props) {
+export function Songs({ title, subheader, sub, list, loadMore, ...other }: Props) {
   return (
     <Card {...other}>
       <CardHeader
@@ -30,11 +31,14 @@ export function Songs({ title, subheader, sub, list, ...other }: Props) {
         sx={{ mb: 1 }}
       />
 
-      <Scrollbar sx={{ minHeight: { xs: '78.5vh', md: '65vh' }, maxHeight: { md: '65vh' } }}>
+      <Scrollbar sx={{ minHeight: { xs: '77vh', md: '65vh' }, maxHeight: {xs: '77vh', md: '65vh' } }}>
         <Box sx={{ minWidth: { md: 640 } }}>
           {list.map((item) => (
             <LyricItem key={item.id} item={item} />
           ))}
+        </Box>
+        <Box>
+          {loadMore}
         </Box>
       </Scrollbar>
 

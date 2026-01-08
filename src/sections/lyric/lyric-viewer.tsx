@@ -1,4 +1,5 @@
 import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 export default function LyricsViewer({ lyrics }: { lyrics: string }) {
@@ -7,13 +8,16 @@ export default function LyricsViewer({ lyrics }: { lyrics: string }) {
       elevation={0}
       sx={{
         p: 2,
-        maxHeight: { xs: '65vh', md: 500 },
-        overflowY: 'auto',
         bgcolor: 'background.default',
         borderRadius: 2,
         textAlign: 'center',
       }}
     >
+      <Divider variant="middle" sx={{ mb: 1 }}>
+        <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>
+          Lyrics
+        </Typography>
+      </Divider>
       <Typography
         variant="body1"
         sx={{
